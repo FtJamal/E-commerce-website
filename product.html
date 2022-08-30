@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kids_wishh</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <style>
+        #productsListDiv {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        #productsListDiv>div {
+            border: 1px solid black;
+            width: 220px;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            font-family: Verdana, sans-serif;
+        }
+
+        #productsListDiv>div:hover {
+            box-shadow: 0px 0px 10px black;
+        }
+
+        #productsListDiv>div>p>span:nth-child(2) {
+            font-size: 32px;
+        }
+    </style>
+</head>
+
+<body>
+<a href="./index.html">Home</a>
+<a href="./product.html">All Products</a>
+
+    <h1>Kids_wishh</h1>
+
+    <div id="productsListDiv">
+
+
+
+    </div>
+
+
+
+    <script>
+        function getAllProducts() {
+            axios.get('http://localhost:3000/products')
+                .then(function (response) {
+
+                    console.log(response.data.data);
+
+                    let productsListDiv = document.querySelector("#productsListDiv")
+
+                    response.data.data.map(eachProduct => {
+
+                        productsListDiv.innerHTML +=
+                            `<div>
+                            <img src="./images/kids toys.webp" alt="">
+                            <p> ${eachProduct.productName} </p>
+                            <p> 
+                                <span>${eachProduct.currencyCode}</span> 
+                                <span>${eachProduct.productPrice}</span> 
+                            </p>
+                            <p> ${eachProduct.productLeft || 0} left in stock </p>
+                            <p> ${(eachProduct.isFreeShipping) ? "free shipping" : "no free shipping"} </p>
+                            <p>${eachProduct.shopName}</p>
+                        </div>`
+                    })
+                })
+                .catch(function (error) {
+
+                    console.log(error);
+                })
+
+        }
+        getAllProducts();
+
+
+    </script>
+
+</body>
+
+</html>

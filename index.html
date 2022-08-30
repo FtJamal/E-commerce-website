@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kids_wishh</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+  <a href="./index.html">Home</a>
+  <a href="./product.html">All Products</a>
+
+  <h1>
+    Add A Product
+  </h1>
+
+  <br>
+  <form onsubmit="createProduct(); return false ">
+
+    <label for="productName">Product Name</label>
+    <input type="text" id="productName" required>
+    <br>
+    <br>
+    <label for="productPrice">Product Price</label>
+    <input type="number" id="productPrice" required>
+    <br>
+    <br>
+    <label for="currencyCode">Currency Code</label>
+    <input type="text" id="currencyCode" required>
+    <br>
+    <br>
+    <label for="productLeft">Number Of Product Left In Stock</label>
+    <input type="number" id="productLeft" required>
+    <br>
+    <br>
+    <label for="productRating">Product Rating</label>
+    <input type="number" id="productRating" min="0" max="5" required>
+    <br>
+    <br>
+    <label for="isFreeShipping">Free Shipping</label>
+    <select name="isFreeShipping" id="isFreeShipping">
+      <option value="true">True</option>
+      <option value="false">False</option>
+    </select>
+    <br>
+    <br>
+    <label for="shopName">Shop Name</label>
+    <input type="text" id="shopName" required>
+    <br>
+    <br>
+    <input type="submit" value="Add in database">
+    <br>
+
+  </form>
+
+  <p id="message"></p>
+
+
+
+  <script>
+    function createProduct() {
+
+      let productName = document.querySelector("#productName").value;
+      let productPrice = document.querySelector("#productPrice").value;
+      let currencyCode = document.querySelector("#currencyCode").value;
+      let productLeft = document.querySelector("#productLeft").value;
+      let productRating = document.querySelector("#productRating").value;
+      let isFreeShipping = document.querySelector("#isFreeShipping").value;
+      let shopName = document.querySelector("#shopName").value;
+
+      axios.post('http://localhost:3000/product', {
+        productName,
+        productPrice,
+        currencyCode,
+        productLeft,
+        productRating,
+        isFreeShipping,
+        shopName,
+
+
+      })
+        .then(function (response) {
+          console.log(response.data);
+          document.querySelector("#message").innerHTML = response.data.message;
+
+        })
+        .catch(function (error) {
+          console.log(error.response.data);
+          document.querySelector("#message").innerHTML = error.response.data.message;
+        });
+    }
+
+
+  </script>
+</body>
+
+</html>
