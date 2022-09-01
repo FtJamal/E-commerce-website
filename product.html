@@ -31,7 +31,7 @@
             font-size: 32px;
         }
 
-        .delete {
+        .delete , .edit {
             color: red;
             border-color: red;
             border-radius: 5px;
@@ -66,13 +66,14 @@
 
     <script>
 
-        let baseURL;
+        let baseUrl;
 
-        if (window.location.href === -1) {
-            baseURL = "http://localhost:3000";
+        if (window.location.href.indexOf("https") === -1) {
+            baseUrl = "http://localhost:3000";
         } else {
-            baseURL = "https://first-e-commerce-website.herokuapp.com";
+            baseUrl = "https://mongodb-crud-ecommerce-store.herokuapp.com";
         }
+
 
         function getAllProducts() {
             axios.get(baseUrl + "/products")
@@ -96,6 +97,7 @@
                             <p> ${(eachProduct.isFreeShipping) ? "free shipping" : "no free shipping"} </p>
                             <p>${eachProduct.shopName}</p>
                             <button class="delete" onclick="deleteProduct('${eachProduct._id}')">Delete</button>
+                            <button class="edit" onclick="editProduct('${eachProduct._id}')">Edit</button>
                         </div>`
                     })
                 })
@@ -111,7 +113,7 @@
             console.log("productId: ", id)
 
             let response = await axios
-                .delete('${baseURL}/product/${id}')
+                .delete('${baseUrl}/product/${id}')
                 .catch(e => {
                     console.log("error: ", e);
                     return;

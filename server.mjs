@@ -34,13 +34,13 @@ const productModel = mongoose.model('Product', productSchema);
 //                 message: 'all products success',
 //                 data: "result"
 //             })
-        
+
 //             return;
 //         }
 //         else {
 //             console.log("error in db: ", err);
 //             response.status(500).send({ message: "error in getting all products" });
-           
+
 //         }
 //     });
 
@@ -112,6 +112,33 @@ app.post('/product', (req, res) => {
     };
 
 })
+
+app.delete('/product/:id', async (req, res) => {
+
+    let _id = req.params.id;
+
+    try {
+        const result = await productModel.findByIdAndDelete(_id);
+        console.log("Deleted product: ", result);
+        res.send({
+            message: "deleted"
+        });
+        return;
+
+    } catch (err) {
+        res.status(500).send({
+            message: "db error"
+        })
+
+    }
+});
+
+
+
+// app.use("/*", (req, res) => {
+//     console.log(" I am * handler");
+//     res.status(404).send("this api doesn't exist");
+// })
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)

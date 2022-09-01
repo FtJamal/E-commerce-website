@@ -68,13 +68,13 @@
 
     //////////////////////////////////////////////////////////
 
-    let baseURL;
+    let baseUrl;
 
-    if (window.location.href === -1) {
-      baseURL = "http://localhost:3000";
-    } else {
-      baseURL = "https://first-e-commerce-website.herokuapp.com";
-    }
+        if (window.location.href.indexOf("https") === -1) {
+            baseUrl = "http://localhost:3000";
+        } else {
+            baseUrl = "https://mongodb-crud-ecommerce-store.herokuapp.com";
+        }
 
 
 
@@ -89,7 +89,7 @@
       let shopName = document.querySelector("#shopName").value;
 
 
-      axios.post('${baseURL}/product', {
+      axios.post('${baseUrl}/product', {
         productName,
         productPrice,
         currencyCode,
