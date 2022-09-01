@@ -71,11 +71,11 @@
         if (window.location.href === -1) {
             baseURL = "http://localhost:3000";
         } else {
-            baseURL = "https://first-e-commerce-website.herokuapp.com/ "
-        };
+            baseURL = "https://first-e-commerce-website.herokuapp.com";
+        }
 
         function getAllProducts() {
-            axios.get('${baseURL}/products')
+            axios.get(baseUrl + "/products")
                 .then(function (response) {
 
                     console.log(response.data.data);
