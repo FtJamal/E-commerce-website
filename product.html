@@ -30,26 +30,52 @@
         #productsListDiv>div>p>span:nth-child(2) {
             font-size: 32px;
         }
+
+        .delete {
+            color: red;
+            border-color: red;
+            border-radius: 5px;
+        }
     </style>
 </head>
 
 <body>
-<a href="./index.html">Home</a>
-<a href="./product.html">All Products</a>
+    <a href="./index.html">Home</a>
+    <a href="./product.html">All Products</a>
 
     <h1>Kids_wishh</h1>
 
     <div id="productsListDiv">
-
-
+        <!-- <div>
+            // <img src="./images/kids toys.webp" alt="">
+            // <p> ${eachProduct.productName} </p>
+            // <p>
+                // <span>${eachProduct.currencyCode}</span>
+                // <span>${eachProduct.productPrice}</span>
+                // </p>
+            // <p> ${eachProduct.productLeft || 0} left in stock </p>
+            // <p> ${(eachProduct.isFreeShipping) ? "free shipping" : "no free shipping"} </p>
+            // <p>${eachProduct.shopName}</p>
+            <button class="delete" onclick="deleteProduct('${eachProduct._id}')">Delete</button>
+            //
+        </div> -->
 
     </div>
 
 
 
     <script>
+
+        let baseURL;
+
+        if (window.location.href === -1) {
+            baseURL = "http://localhost:3000";
+        } else {
+            baseURL = "https://first-e-commerce-website.herokuapp.com/ "
+        };
+
         function getAllProducts() {
-            axios.get('http://localhost:3000/products')
+            axios.get('${baseURL}/products')
                 .then(function (response) {
 
                     console.log(response.data.data);
@@ -69,6 +95,7 @@
                             <p> ${eachProduct.productLeft || 0} left in stock </p>
                             <p> ${(eachProduct.isFreeShipping) ? "free shipping" : "no free shipping"} </p>
                             <p>${eachProduct.shopName}</p>
+                            <button class="delete" onclick="deleteProduct('${eachProduct._id}')">Delete</button>
                         </div>`
                     })
                 })
@@ -79,6 +106,23 @@
 
         }
         getAllProducts();
+
+        async function deleteProduct(id) {
+            console.log("productId: ", id)
+
+            let response = await axios
+                .delete('${baseURL}/product/${id}')
+                .catch(e => {
+                    console.log("error: ", e);
+                    return;
+                });
+
+            if (response) {
+                console.log("deleted");
+                getAllProducts();
+            }
+
+        }
 
 
     </script>

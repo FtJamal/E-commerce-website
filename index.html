@@ -61,6 +61,23 @@
 
 
   <script>
+
+    // let baseURL = "http://localhost:3000";
+    // let baseURL = "https://first-e-commerce-website.herokuapp.com/"  
+    // console.log(window.location.href);
+
+    //////////////////////////////////////////////////////////
+
+    let baseURL;
+
+    if (window.location.href === -1) {
+      baseURL = "http://localhost:3000";
+    } else {
+      baseURL = "https://first-e-commerce-website.herokuapp.com/ "
+    }
+
+
+
     function createProduct() {
 
       let productName = document.querySelector("#productName").value;
@@ -71,7 +88,8 @@
       let isFreeShipping = document.querySelector("#isFreeShipping").value;
       let shopName = document.querySelector("#shopName").value;
 
-      axios.post('http://localhost:3000/product', {
+      
+      axios.post('${baseURL}/product', {
         productName,
         productPrice,
         currencyCode,
