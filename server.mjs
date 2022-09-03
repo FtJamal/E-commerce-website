@@ -24,44 +24,6 @@ const productSchema = new mongoose.Schema({
 const productModel = mongoose.model('Product', productSchema);
 
 
-// app.get('/products', (req, res) => {
-
-//     let result = productModel.find({}, function (err, res) {
-
-//         if (!err) {
-//             console.log("data: ", result);
-//             response.send({
-//                 message: 'all products success',
-//                 data: "result"
-//             })
-
-//             return;
-//         }
-//         else {
-//             console.log("error in db: ", err);
-//             response.status(500).send({ message: "error in getting all products" });
-
-//         }
-//     });
-
-// });
-
-app.get("/products", async (req, res) => {
-
-    let result = await productModel
-        .find({})
-        .exec()
-        .catch(e => {
-            console.log("error in db: ", e);
-            res.status(500).send({ message: "error in getting all products" });
-            return
-        })
-
-    res.send({
-        message: "all products success ",
-        data: result
-    });
-});
 
 app.post('/product', (req, res) => {
 
